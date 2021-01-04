@@ -1,6 +1,18 @@
 //initialize the socket object
 const socket = io();
 
+//grab the url which has the form data as a query string
+var url = window.location.href;
+console.log(url);
+var query = url.split("?")[1].split("&");
+var username_arr = query[0].split("=");
+var username = username_arr[1];
+var roomname_arr = query[1].split("=");
+var roomName = roomname_arr[1];
+console.log(username,roomName);
+//send the username to server
+socket.emit("user_details",{username:username,roomName:roomName});
+
 //listen for events
 socket.on("message",(data)=>{
     const div = document.createElement("div");
